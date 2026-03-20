@@ -10,26 +10,31 @@ import  emailjs  from "@emailjs/browser";
 function Home({ darkMode, onOpenContact }) {
   return (
     <div className = "min-h-screen flex flex-col items-center justify-center pt-10 text-center">
-      <div className = "flex gap-10">
-        <div className = "p-10 rounded-2xl  max-w-md flex-col flex gap-4">
-          <img className = "w-36 h-36 rounded-full object-cover border-4 border-purple-400 shadow-[0_0_25px_#a855f7]" src = "/Portofolio/assets/pixel_art.jpg" alt = "profile" />
-          <p className = "text-lg leading-relaxed text-lg font-semibold">Full Stack Developer</p>
-          <p className = "text-sm leading-relaxed">Level 2</p>
+
+      <div className = "flex flex-col md:flex-row gap-10 items-center">
+
+        {/* LEFT */}
+        <div className = "p-6 md:p-10 rounded-2xl max-w-md flex flex-col gap-4 items-center md:items-start">
+          <img className = "w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-purple-400 shadow-[0_0_25px_#a855f7]" src = "/Portofolio/assets/pixel_art.jpg" alt = "profile" />
+
+          <p className = "text-lg font-semibold">Full Stack Developer</p>
+          <p className = "text-sm">Level 2</p>
           <Stat name = "Backend" level = {80} />
           <Stat name = "Frontend" level = {60} />
         </div>
 
-        <div className = "p-10 rounded-2xl max-w-md gap-10 mt-10">
-          <h2 className = "text-5xl font-bold text-justify"> <span>Hola, aqui <span className = "text-purple-400 font-bold">Nacho!</span></span> 👋</h2>
-          <h3 className = "text-lg leading-relaxed text-justify">
-            <br />
+        {/* RIGHT */}
+        <div className = "p-6 md:p-10 rounded-2xl max-w-md text-center md:text-left">
+          <h2 className = "text-3xl md:text-5xl font-bold leading-tight"> <span>Hola, aqui{" "}<span className = "text-purple-400 font-bold">Nacho!</span></span> 👋</h2>
+
+          <h3 className = "text-sm md:text-lg leading-relaxed mt-4">
            Soy <span className = "italic font-semibold text-purple-400">desarrollador backend junior enfocado en Python</span>, con experiencia en la creación de aplicaciones y en el uso de arquitecturas basadas en principios SOLID. Me apasiona construir soluciones eficientes, bien estructuradas y en constante mejora, mientras continúo formándome en ingeniería de software y computación en la nube.
           </h3>
         </div>
       </div>
 
         <div>
-          <div className = "mt-10 flex justify-center gap-6">
+          <div className = "mt-10 flex flex-wrap justify-center gap-6">
             <IconButton 
             href = "https://github.com/Ramirofordev"
             icon = {FaGithub}
@@ -56,7 +61,7 @@ function Home({ darkMode, onOpenContact }) {
         <button
           onClick = {onOpenContact}
           className="
-            mt-6 inline-block px-6 py-3 rounded-xl
+            mt-6 px-6 py-3 rounded-xl
             bg-purple-500 text-white font-semibold
             shadow-[0_0_20px_#a855f7]
             hover:scale-105 hover:bg-purple-600
@@ -106,7 +111,7 @@ function Aboutme() {
       <div className="flex flex-col md:flex-row items-center gap-12">
         
         {/* LEFT - TEXTO */}
-        <div className="max-w-3xl space-y-6 text-lg leading-relaxed text-justify">
+        <div className="max-w-3xl space-y-6 text-lg leading-relaxed">
           
           <p>
             Soy <span className="font-semibold text-purple-400">desarrollador backend junior </span> 
@@ -159,7 +164,7 @@ function Navbar({ darkMode, setDarkMode }) {
   return (
     <div className="fixed top-4 w-full flex justify-center z-50 text-sm font-sans">
       <div className={`
-        flex gap-4 px-4 py-2 rounded-full
+        flex flex-wrap gap-3 px-4 py-2 rounded-full
         backdrop-blur-sm border shadow-lg items-center
         shadow-[0_0_20px_rgba(168, 85, 247, 0.2)]
         hover:shadow-[0_0_25px_rgba(168, 85, 247, 0.4)]
@@ -398,7 +403,7 @@ function ExperiencePanel({ darkMode }) {
     <div className = "relative max-w-4xl mx-auto">
 
       {/* Vertical Line */}
-      <div className = "absolute left-1/2 top-0 h-full w-[2px] bg-purple-500 opacity-30 bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div>
+      <div className = "hidden md:block absolute left-1/2 top-0 h-full w-[2px] bg-purple-500 opacity-30 bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div>
 
       <div className = "flex flex-col gap-16">
         {experience.map((item, index) => (
@@ -418,19 +423,19 @@ function TimelineItem({ item, index, darkMode } ) {
     const isLeft = index % 2 === 0;
 
     return (
-      <div className="relative flex w-full items-center">
+      <div className="flex flex-col md:flex-row w-full items-center gap-6">
 
         {isLeft ? (
           <>
-            <div className="w-1/2 pr-10 flex justify-end">
+            <div className="w-full md:w-1/2 pr-10 flex justify-end">
               <TimelineCard item={item} darkMode={darkMode} align="right" />
             </div>
-            <div className="w-1/2" />
+            <div className="w-full md:w-1/2" />
           </>
         ) : (
           <>
-            <div className="w-1/2" />
-            <div className="w-1/2 pl-10">
+            <div className="w-full md:w-1/2" />
+            <div className="w-full md:w-1/2 pl-10">
               <TimelineCard item={item} darkMode={darkMode} align="left" />
             </div>
           </>
@@ -439,7 +444,7 @@ function TimelineItem({ item, index, darkMode } ) {
 
         {/* DOT */}
         <div className ="
-        absolute left-1/2 transform -translate-x-1/2
+        hidden md:block absolute left-1/2 transform -translate-x-1/2
         w-4 h-4 bg-purple-500 rounded-full
         shadow-[0_0_20px_#a855f7] animate-pulse
         "></div>
@@ -481,7 +486,7 @@ function TimelineCard({ item, darkMode, align }) {
 function ProjectCard({ project, darkMode }) {
   return (
     <div className = {`
-    rounded-xl overflow-hidden border flex min-h-[250px]
+    rounded-xl overflow-hidden border flex flex-col md:flex-row min-h-[250px]
     transition-all duration-300 group
     hover:scale-[1.02] hover:shadow-[0_0_20px_#a855f7]
     group hover:-translate-y-1
@@ -492,12 +497,12 @@ function ProjectCard({ project, darkMode }) {
     }`}>
 
         {/* LEFT */}
-        <div className = "w-1/2 border-r border-white/10">
+        <div className = "w-full md:w-1/2 border-r border-white/10">
           <img src = {project.img} alt = {project.title}  className = "w-full h-full object-cover bg-black/20"/>
         </div>
 
         {/* RIGHT */}
-        <div className = "w-1/2 p-6 flex flex-col justify-center gap-4">
+        <div className = "w-full md:w-1/2 p-6 flex flex-col justify-center gap-4">
           <h2 className = "text-2xl font-bold group-hover:text-purple-400 transition">{project.title}</h2>
             <div className = "flex flex-wrap gap-2 items-center">
             {project.technologies.map((techonology, index) => (
@@ -674,9 +679,16 @@ function App() {
     `}>
       
       {/* Glow background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[-200px] left-1/2 w-[600px] h-[600px] bg-purple-500 opacity-20 blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-[-200px] right-1/2 w-[600px] h-[600px] bg-blue-500 opacity-20 blur-[120px] rounded-full"></div>
+      <div className={`
+        block md:hidden absolute inset-0 opacity-30
+        ${darkMode 
+          ? "bg-gradient-to-br from-purple-900 to-blue-900"
+          : "bg-gradient-to-br from-purple-200 to-blue-200"}
+      `}>
+        <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-500 opacity-20 blur-[120px] rounded-full"></div>
+
+        <div className="absolute bottom-[-150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-500 opacity-20 blur-[120px] rounded-full"></div>
+
       </div>
       <div className = "absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
