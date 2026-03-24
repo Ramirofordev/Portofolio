@@ -85,5 +85,13 @@ export const certificates = [{
     rarity: "legendary",
     image: "/Portofolio/assets/certpract.png",
     pdf: "/Portofolio/assets/certpract.pdf",
+},
+{
+    id: 12,
+    title: "Iniciando con Git y GitHub",
+    description: "Formación en control de versiones Git y colaboración en GitHub. Gestión de repositorios, ramas, commits y trabajo en equipo mediante pull requests y forks.",
+    rarity: "epic",
+    image: "/Portofolio/assets/coursegh.png",
+    pdf: "/Portofolio/assets/coursegh.pdf"
 }
 ]
