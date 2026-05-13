@@ -1,16 +1,94 @@
-# React + Vite
+# Portafolio RPG
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portafolio personal de Jose Ignacio Ramiro construido con React y Vite. La interfaz esta planteada como un menu RPG inspirado en juegos soulslike, con una direccion visual oscura, paneles de inventario, rarezas, misiones y cronicas de progreso.
 
-Currently, two official plugins are available:
+## Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+El proyecto presenta perfil profesional, habilidades, certificados, experiencia y proyectos de una forma distinta a un portafolio tradicional. La idea principal es que la navegacion se sienta como una pantalla de personaje:
 
-## React Compiler
+- Perfil como ficha principal del jugador.
+- Inventario con certificados, habilidades y experiencia.
+- Misiones para proyectos desplegados.
+- Cronicas para resumen profesional.
+- Contacto mediante modal integrado con EmailJS.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+- React
+- Vite
+- Tailwind CSS
+- React Icons
+- EmailJS
+- GitHub Pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estructura
+
+```text
+src/
+  App.jsx                 # Estructura principal de la SPA y componentes de UI
+  index.css               # Estilos globales, tema visual y responsive
+  data/
+    certificates.js       # Certificados y rarezas
+    experience.js         # Experiencia profesional y formativa
+    projects.js           # Proyectos destacados
+    skills.js             # Lenguajes, herramientas y niveles
+  utils/
+    assets.js             # Helper para rutas compatibles con Vite base
+public/
+  assets/                 # Imagenes, certificados, CV e iconos
+```
+
+## Instalacion
+
+```bash
+pnpm install
+```
+
+Tambien se puede usar npm si se prefiere:
+
+```bash
+npm install
+```
+
+## Comandos
+
+```bash
+pnpm run dev
+```
+
+Inicia el entorno de desarrollo.
+
+```bash
+pnpm run build
+```
+
+Genera la version de produccion en `dist/`.
+
+```bash
+pnpm run preview
+```
+
+Sirve localmente la build de produccion.
+
+```bash
+pnpm run deploy
+```
+
+Publica `dist/` en GitHub Pages mediante `gh-pages`.
+
+## Despliegue
+
+El proyecto esta configurado para GitHub Pages con:
+
+```js
+base: "/Portofolio/"
+```
+
+Las rutas de assets se construyen con `import.meta.env.BASE_URL` para funcionar correctamente tanto en desarrollo como en despliegue.
+
+## Notas de mantenimiento
+
+- Mantener los textos profesionales, breves y revisados ortograficamente.
+- Al agregar nuevos certificados, definir su `rarity`: `common`, `rare`, `epic` o `legendary`.
+- Al agregar proyectos, incluir demo, repositorio, tecnologias y detalles tecnicos concretos.
+- Verificar siempre con `pnpm run build` antes de desplegar.

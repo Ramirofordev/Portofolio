@@ -1,32 +1,38 @@
 export const experience = [
   {
     id: 1,
-    role: "Camarero",
-    company: "La Venta Vieja, Cercedilla",
-    date: "2026 Ene - Actualidad",
-    description: ["Trabajo como camarero los fines de semana en un entorno de alta demanda, desarrollando habilidades como atención al cliente, trabajo en equipo y gestión eficiente del tiempo."],
+    role: "Backend Developer Intern",
+    company: "TSS Ciberseguridad",
+    date: "Nov 2025 - Ene 2026",
+    rank: "Prácticas profesionales",
+    description: [
+      "Desarrollo de una aplicación CRM en Python con PyQt.",
+      "Arquitectura modular basada en principios SOLID.",
+      "Gestión de clientes, oportunidades y actividades.",
+      "Más de 200 horas de experiencia práctica en entorno profesional.",
+    ],
   },
   {
     id: 2,
-    role: "FullStack Developer",
-    company: "Personal",
+    role: "Full Stack Developer",
+    company: "Proyecto personal",
     date: "Feb 2026 - Actualidad",
+    rank: "Quest activa",
     description: [
-      "Aplicación práctica de metodologías ágiles como Scrum, centrada en la planificación, gestión y seguimiento de tareas.",
-      "Uso de enfoques iterativos, priorización de backlog y colaboración en equipo para mejorar la eficiencia en el desarrollo de proyectos."
+      "Construcción de aplicaciones web con Python, Flask, React y JavaScript.",
+      "Uso de metodologías ágiles para planificar, priorizar y revisar avances.",
+      "Mejora continua de arquitectura, mantenibilidad y despliegue.",
     ],
   },
   {
     id: 3,
-    role: "Backend Developer Intern",
-    company: "TSS Ciberseguridad",
-    date: "Nov 2025 - Ene 2026",
+    role: "Camarero",
+    company: "La Venta Vieja, Cercedilla",
+    date: "Ene 2026 - Actualidad",
+    rank: "Habilidad transversal",
     description: [
-      "Desarrollo de una aplicación CRM en Python con PyQt",
-      "Arquitectura modular basada en principios SOLID",
-      "Gestión de clientes, oportunidades y actividades",
-      "Optimización y organización del código",
-      "Más de 200 horas de experiencia práctica"
+      "Atención al cliente en un entorno de alta demanda.",
+      "Trabajo en equipo, comunicación clara y gestión eficiente del tiempo.",
     ],
   },
 ];

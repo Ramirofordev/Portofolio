@@ -1,21 +1,22 @@
+import { assetPath } from "../utils/assets";
+
 export const skills = {
   languages: [
-    { name: "JAVASCRIPT", icon: "/Portofolio/assets/javascript.svg" },
-    { name: "PYTHON", icon: "/Portofolio/assets/python.svg" },
-    { name: "SQL", icon: "/Portofolio/assets/sql.svg" },
-    { name: "HTML5", icon: "/Portofolio/assets/html5.svg" },
-    { name: "CSS", icon: "/Portofolio/assets/css.svg" },
-    { name: "BASH", icon: "/Portofolio/assets/bash.svg"},
-    { name: "C", icon: "/Portofolio/assets/c.svg"},
+    { name: "JavaScript", icon: assetPath("assets/javascript.svg"), level: 72 },
+    { name: "Python", icon: assetPath("assets/python.svg"), level: 86 },
+    { name: "SQL", icon: assetPath("assets/sql.svg"), level: 68 },
+    { name: "HTML5", icon: assetPath("assets/html5.svg"), level: 78 },
+    { name: "CSS", icon: assetPath("assets/css.svg"), level: 72 },
+    { name: "Bash", icon: assetPath("assets/bash.svg"), level: 58 },
+    { name: "C", icon: assetPath("assets/c.svg"), level: 44 },
   ],
 
   tools: [
-    { name: "React", icon: "/Portofolio/assets/react.svg" },
-    { name: "Flask", icon: "/Portofolio/assets/flask.svg" },
-    { name: "Tailwind", icon: "/Portofolio/assets/tailwind.svg" },
-    { name: "Django", icon: "/Portofolio/assets/django.svg"},
-    { name: "Git", icon: "/Portofolio/assets/git.svg"},
-    { name: "Vscode", icon: "/Portofolio/assets/vscode.svg"},
-
-  ]
+    { name: "React", icon: assetPath("assets/react.svg"), level: 66 },
+    { name: "Flask", icon: assetPath("assets/flask.svg"), level: 78 },
+    { name: "Tailwind", icon: assetPath("assets/tailwind.svg"), level: 70 },
+    { name: "Django", icon: assetPath("assets/django.svg"), level: 52 },
+    { name: "Git", icon: assetPath("assets/git.svg"), level: 76 },
+    { name: "VS Code", icon: assetPath("assets/vscode.svg"), level: 80 },
+  ],
 };

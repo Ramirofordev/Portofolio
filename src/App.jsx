@@ -1,738 +1,562 @@
-import { useEffect, useState } from "react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaLink} from "react-icons/fa";
+import { useEffect, useMemo, useState } from "react";
+import {
+  FaBriefcase,
+  FaChevronRight,
+  FaCode,
+  FaEnvelope,
+  FaExternalLinkAlt,
+  FaFileDownload,
+  FaGem,
+  FaGithub,
+  FaLinkedin,
+  FaMapMarkedAlt,
+  FaMedal,
+  FaMoon,
+  FaScroll,
+  FaSun,
+  FaTimes,
+  FaTools,
+  FaUserAlt,
+} from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 import { certificates } from "./data/certificates";
-import { skills } from "./data/skills";
 import { experience } from "./data/experience";
 import { projects } from "./data/projects";
-import  emailjs  from "@emailjs/browser";
-
-// Screens
-function Home({ darkMode, onOpenContact }) {
-  return (
-    <div className = "min-h-screen flex flex-col items-center justify-center pt-10 text-center">
-
-      <div className = "flex flex-col md:flex-row gap-10 items-center">
-
-        {/* LEFT */}
-        <div className = "p-6 md:p-10 rounded-2xl max-w-md flex flex-col gap-4 items-center md:items-start">
-          <img className = "w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-purple-400 shadow-[0_0_25px_#a855f7]" src = "/Portofolio/assets/pixel_art.jpg" alt = "profile" />
-
-          <p className = "text-lg font-semibold">Full Stack Developer</p>
-          <p className = "text-sm">Level 2</p>
-          <Stat name = "Backend" level = {80} />
-          <Stat name = "Frontend" level = {60} />
-        </div>
-
-        {/* RIGHT */}
-        <div className = "p-6 md:p-10 rounded-2xl max-w-md text-center md:text-left">
-          <h2 className = "text-3xl md:text-5xl font-bold leading-tight"> <span>Hola, aqui{" "}<span className = "text-purple-400 font-bold">Nacho!</span></span> 👋</h2>
-
-          <h3 className = "text-sm md:text-lg leading-relaxed mt-4">
-           Soy <span className = "italic font-semibold text-purple-400">desarrollador backend junior enfocado en Python</span>, con experiencia en la creación de aplicaciones y en el uso de arquitecturas basadas en principios SOLID. Me apasiona construir soluciones eficientes, bien estructuradas y en constante mejora, mientras continúo formándome en ingeniería de software y computación en la nube.
-          </h3>
-        </div>
-      </div>
-
-        <div>
-          <div className = "mt-10 flex flex-wrap justify-center gap-6">
-            <IconButton 
-            href = "https://github.com/Ramirofordev"
-            icon = {FaGithub}
-            darkMode = {darkMode} />
-
-            <IconButton
-            href = "https://linkedin.com/in/ramirofordev01/"
-            icon = {FaLinkedin}
-            darkMode = {darkMode} />
-
-            <IconButton
-            href = "mailto:joseignacioramirocastro22@gmail.com"
-            icon = {FaEnvelope}
-            darkMode = {darkMode} />
-
-            <IconButton
-            href = "/Portofolio/assets/José_Ignacio_Ramiro_Castro.pdf"
-            icon = {FaFileDownload}
-            darkMode = {darkMode} />
-
-          </div>
-        </div>
-
-        <button
-          onClick = {onOpenContact}
-          className="
-            mt-6 px-6 py-3 rounded-xl
-            bg-purple-500 text-white font-semibold
-            shadow-[0_0_20px_#a855f7]
-            hover:scale-105 hover:bg-purple-600
-            transition
-          "
-        >
-          Contáctame
-        </button>
-    </div>
-
-  );
-}
-
-function Inventory({ darkMode }) {
-  const [activeTab, setActiveTab] = useState("certificates");
-  return (
-    <div className = "min-h-screen flex flex-col items-center justify-start pt-32 gap-10">
-      <h1></h1>
-
-      <InventoryTabs activeTab = {activeTab} setActiveTab = {setActiveTab} darkMode = {darkMode}/>
-
-      <div className = "w-full max-w-4xl">
-        {activeTab === "certificates" && <CertificatesPanel darkMode = {darkMode}/>}
-        {activeTab === "skills" && <SkillsPanel darkMode = {darkMode}/>}
-        {activeTab === "experience" && <ExperiencePanel darkMode = {darkMode}/>}
-      </div>
-    </div>
-  );
-}
-
-function Projects({ darkMode }) {
-  return (
-    <div className = "min-h-screen flex items-center justify-center">
-      <ProjectsPanel darkMode = {darkMode} />
-    </div>
-  );
-}
-
-function Aboutme() {
-  return (
-    <div className="min-h-screen flex flex-col justify-start pt-32 max-w-6xl mx-auto w-full px-6">
-      
-      <h2 className="text-4xl font-bold mb-12">
-        Perfil de Jugador
-      </h2>
-
-      <div className="flex flex-col md:flex-row items-center gap-12">
-        
-        {/* LEFT - TEXTO */}
-        <div className="max-w-3xl space-y-6 text-lg leading-relaxed">
-          
-          <p>
-            Soy <span className="font-semibold text-purple-400">desarrollador backend junior </span> 
-            especializado en <span className="font-semibold">Python</span>, enfocado en crear 
-            <span className="italic"> aplicaciones bien estructuradas, escalables y mantenibles</span>. 
-            He desarrollado proyectos como un <span className="font-semibold text-purple-400">sistema CRM </span> 
-            aplicando <span className="font-semibold">principios SOLID</span> y 
-            <span className="font-semibold"> arquitectura modular</span>, además de contar con 
-            experiencia práctica en entorno profesional.
-          </p>
-
-          <p>
-            Complemento mi perfil con conocimientos en 
-            <span className="font-semibold"> desarrollo web</span>, 
-            <span className="font-semibold"> Git</span>, 
-            <span className="font-semibold"> Linux</span> y 
-            <span className="font-semibold text-purple-400"> cloud computing</span>. 
-            Me considero una persona <span className="italic">en constante aprendizaje</span>, 
-            orientada a la <span className="font-semibold">mejora continua</span> y al desarrollo 
-            de <span className="font-semibold">soluciones que aporten valor</span>.
-          </p>
-
-        </div>
-
-        {/* RIGHT - IMAGEN */}
-        <div className="flex justify-center">
-          <img
-            src="/Portofolio/assets/yo.png"
-            alt="profile"
-            className="
-              w-64 h-64 object-cover rounded-2xl
-              border-2 border-purple-400
-              shadow-[0_0_25px_#a855f7]
-              transition duration-300
-              hover:scale-105 hover:shadow-[0_0_40px_#a855f7]
-            "
-          />
-        </div>
-
-      </div>
-    </div>
-  );
-}
-
-function Navbar({ darkMode, setDarkMode }) {
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <div className="fixed top-4 w-full flex justify-center z-50 text-sm font-sans">
-      <div className={`
-        flex flex-wrap gap-3 px-4 py-2 rounded-full
-        backdrop-blur-sm border shadow-lg items-center
-        shadow-[0_0_20px_rgba(168, 85, 247, 0.2)]
-        hover:shadow-[0_0_25px_rgba(168, 85, 247, 0.4)]
-        transition-all duration-300
-
-        ${darkMode 
-          ? "bg-white/5 border-white/10 text-white" 
-          : "bg-black/5 border-black/10 text-black"}
-      `}>
-
-        <button onClick={() => scrollTo("home")} className="hover:text-purple-400">
-          Inicio
-        </button>
-
-        <button onClick={() => scrollTo("inventory")} className="hover:text-blue-400">
-          Inventario
-        </button>
-
-        <button onClick={() => scrollTo("quests")} className="hover:text-green-400">
-          Proyectos
-        </button>
-
-        <button onClick={() => scrollTo("achievements")} className="hover:text-yellow-400">
-          Sobre mi
-        </button>
-
-        <button 
-          onClick={() => setDarkMode(prev => !prev)} 
-          className="px-3 py-1 rounded-lg hover:scale-110 transition"
-        >
-          {darkMode ? "☼" : "☾"}
-        </button>
-
-        
-      </div>
-    </div>
-  );
-}
-
-function Stat({ name, level }) {
-  const [width, setWidth] = useState(0)
-
-  useEffect(() => {
-    setWidth(level)
-  }, [level])
-  return (
-    <div className = "w-full flex items-center gap-4">
-      <span className = "w-24">{name}</span>
-      <div className = "w-full bg-gray-300 rounded-full h-4">
-        <div className = "bg-purple-400 h-4 rounded-full transition-all ease-out duration-1000 shadow-[0_0_10px_#a855f7]" style = {{width: `${width}%`}}></div>
-      </div>
-    </div> 
-  )
-}
-
-function IconButton({ href, icon: Icon, darkMode }) {
-  return (
-    <a href = {href} className = "flex items-center gap-3 group">
-      <div className = {`border border-white/10 p-3 rounded-xl
-      backdrop-blur-md
-      transition-all duration-300
-      hover:scale-110 hover:shadow-[0_0_15px_#a855f7]
-      ${darkMode ? "hover:bg-[#e5d6e1]/10" : "hover:bg-[#373737]/10"}
-      `}
-      >
-        <Icon size = {30} 
-        className="transition group-hover:text-purple-400"/> 
-      </div>
-    </a>
-  );
-}
-
-function InventoryTabs({ activeTab, setActiveTab, darkMode }) {
-  const tabs = [
-    { id: "certificates", label: "Certificados" },
-    { id: "skills", label: "Skills" },
-    { id: "experience", label: "Experiencia" },
-  ];
-
-  return (
-    <div className = {`flex gap-4 px-4 py-2 rounded-xl border backdrop-blur-sm
-    ${darkMode
-      ? "bg-white/5 border-white/10 text-white"
-      : "bg-black/5 border-black/10 text-black"}
-      `}>
-
-      {tabs.map((tab) => (
-        <button
-        key = {tab.id}
-        onClick = {() => setActiveTab(tab.id)}
-        className = {`
-          px-4 py-2 rounded-lg transition-all duration-200
-          
-          ${activeTab === tab.id
-            ? "bg-purple-500 text-white shadow-[0_0_10px_#a855f7]"
-            : "text-gray-400 hover:text-black"}
-            `}>
-              {tab.label}
-            </button>
-      ))}
-    </div>
-  );
-}
-
-function CertificatesCard({ cert, darkMode }) {
-  const rarityStyles = {
-  common: "border-gray-400 bg-gray-400/5 hover:bg-gray-400/10",
-
-  rare: "border-blue-400 bg-blue-400/5 hover:bg-blue-400/10 shadow-[0_0_10px_#60a5fa]",
-
-  epic: "border-purple-400 bg-purple-400/5 hover:bg-purple-400/10 shadow-[0_0_15px_#a855f7]",
-
-  legendary: "border-yellow-400 bg-yellow-400/5 hover:bg-yellow-400/15 shadow-[0_0_20px_#facc15]"
-  };
-
-  return (
-    <div className = {`
-      rounded-xl overflow-hidden border transition-all duration-300
-      group hover:scale-105 group hover:-translate-y-1
-      bg-gradient-to-br from-white/5 to-transparent
-      ${darkMode
-        ? "bg-white/5 "
-        : "bg-black/5"
-      }
-      ${rarityStyles[cert.rarity] || "border-white/10"}
-      `}>
-
-        {/* Image */}
-        <img
-          src = {cert.image}
-          alt = {cert.title}
-          className = "w-full h-40 object-cover"
-        />
-
-        {/* Content */}
-        <div className = "p-4 flex-col gap-2">
-
-          <h3 className = "font-semibold text-lg group-hover:text-purple-400">
-            {cert.title}
-          </h3>
-
-          <p className = "text-sm opacity-70">
-            {cert.description}
-          </p>
-
-          {/* Botton */}
-          <a
-            href = {cert.pdf}
-            target = "_blank"
-            rel = "noopener noreferrer"
-            className = "mt-2 hover:underline text-sm"
-          >
-            Ver certificado
-          </a>
-        </div>
-      </div>
-  );
-}
-
-function CertificatesPanel({ darkMode }) {
-  return (
-    <div className = "grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      {certificates.map((cert) => (
-        <CertificatesCard
-        key = {cert.id}
-        cert = {cert}
-        darkMode = {darkMode} />
-      ))}
-    </div>
-  );
-}
-
-function SkillsRow({ items, direction = "left", darkMode }) {
-  const animationClass = direction === "left" ? "scroll-left" : "scroll-right";
-
-  return (
-    <div className="overflow-hidden w-full">
-      <div className={`flex gap-24 w-max px-10 ${animationClass}`}>
-
-        {[...items, ...items].map((skill, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-6 group min-w-max cursor-pointer"
-          >
-
-            {/* ICON */}
-            <img
-              src={skill.icon}
-              alt={skill.name}
-              className="
-                w-16 h-16
-                grayscale
-                brightness-75
-                transition duration-300
-                group-hover:grayscale-0
-                group-hover:brightness-100
-                group-hover:scale-110
-              "
-            />
-
-            {/* TEXT */}
-            <span
-              className={`
-                text-3xl font-semibold tracking-wide transition
-                ${darkMode ? "text-gray-400 group-hover:text-white" : "text-gray-600 group-hover:text-black"}
-                
-              `}
-            >
-              {skill.name.toUpperCase()}
-            </span>
-
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SkillsPanel({ darkMode }) {
-  return (
-    <div className="flex flex-col gap-10">
-
-      {/* Languages */}
-      <SkillsRow items={skills.languages} direction="left" darkMode = {darkMode}/>
-
-      {/* Frameworks / tools */}
-      <SkillsRow items={skills.tools} direction="right" darkMode = {darkMode}/>
-
-    </div>
-  );
-}
-
-function ExperiencePanel({ darkMode }) {
-  return (
-    <div className = "relative max-w-4xl mx-auto">
-
-      {/* Vertical Line */}
-      <div className = "hidden md:block absolute left-1/2 top-0 h-full w-[2px] bg-purple-500 opacity-30 bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div>
-
-      <div className = "flex flex-col gap-16">
-        {experience.map((item, index) => (
-          <TimelineItem
-            key = {item.id}
-            item = {item}
-            index = {index} 
-            darkMode = {darkMode}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TimelineItem({ item, index, darkMode } ) {
-    const isLeft = index % 2 === 0;
-
-    return (
-      <div className="flex flex-col md:flex-row w-full items-center gap-6">
-
-        {isLeft ? (
-          <>
-            <div className="w-full md:w-1/2 pr-10 flex justify-end">
-              <TimelineCard item={item} darkMode={darkMode} align="right" />
-            </div>
-            <div className="w-full md:w-1/2" />
-          </>
-        ) : (
-          <>
-            <div className="w-full md:w-1/2" />
-            <div className="w-full md:w-1/2 pl-10">
-              <TimelineCard item={item} darkMode={darkMode} align="left" />
-            </div>
-          </>
-        )}
-
-
-        {/* DOT */}
-        <div className ="
-        hidden md:block absolute left-1/2 transform -translate-x-1/2
-        w-4 h-4 bg-purple-500 rounded-full
-        shadow-[0_0_20px_#a855f7] animate-pulse
-        "></div>
-
-      </div>
-    );
-}
-
-function TimelineCard({ item, darkMode, align }) {
-  return (
-    <div 
-      className = {`
-        w-full max-w-xl p-6 rounded-xl border transition-all duration-300
-        hover:scale-105 hover:shadow-[0_0_20px_#a855f7]
-        ${darkMode
-          ? "bg-white/5 border-white/10"
-          : "bg-black/5 border-black/10"
-        }
-        ${align === "left" ? "text-right" : "text-left"}
-      `}
-    >
-      <h3 className = "text-2xl font-bold text-purple-400">
-        {item.role}
-      </h3>
-
-      <p className = "text-base opacity-70">
-        {item.company} • {item.date}
-      </p>
-
-      <ul>
-        {item.description.map((desc, i) => (
-           <li key = {i}>• {desc}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function ProjectCard({ project, darkMode }) {
-  return (
-    <div className = {`
-    rounded-xl overflow-hidden border flex flex-col md:flex-row min-h-[250px]
-    transition-all duration-300 group
-    hover:scale-[1.02] hover:shadow-[0_0_20px_#a855f7]
-    group hover:-translate-y-1
-    bg-gradient-to-br from-white/5 to-transparent
-    ${darkMode
-      ? "bg-white/5 border-white/10"
-      : "bg-black/5 border-black/10"
-    }`}>
-
-        {/* LEFT */}
-        <div className = "w-full md:w-1/2 border-r border-white/10">
-          <img src = {project.img} alt = {project.title}  className = "w-full h-full object-cover bg-black/20"/>
-        </div>
-
-        {/* RIGHT */}
-        <div className = "w-full md:w-1/2 p-6 flex flex-col justify-center gap-4">
-          <h2 className = "text-2xl font-bold group-hover:text-purple-400 transition">{project.title}</h2>
-            <div className = "flex flex-wrap gap-2 items-center">
-            {project.technologies.map((techonology, index) => (
-              <div key = {index} className = "flex px-4 py-2 rounded-full border gap-2" style = {{backgroundColor: techonology.color}}>
-                <img src = {techonology.icon} className = "w-5 h-5"/>
-                <span className = "text-sm">{techonology.name}</span>
-              </div> 
-            ))}
-            </div>
-
-            <div className = "text-sm opacity-70">
-              <p>{project.description}</p>
-            </div>
-            
-            <div className = "flex justify-start gap-4 border-t pt-3 mt-3">
-              <IconButton
-              href = {project.links.demo}
-              icon = {FaLink}
-              darkMode = {darkMode}
-              />
-              <IconButton
-              href = {project.links.repo}
-              icon = {FaGithub}
-              darkMode = {darkMode}
-              />
-            </div>
-
-            
-        </div>
-    </div>
-  );
-}
-
-function ProjectsPanel({ darkMode }) {
-  return (
-    <div className = "grid grid-cols-1 gap-6 max-w-5xl mx-auto">
-
-      {projects.map((project) => (
-        <ProjectCard
-        key = {project.id}
-        project = {project}
-        darkMode = {darkMode} />
-      ))}
-    </div>
-  );
-}
-
-function ContactModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-
-      <div className="
-        w-full max-w-md p-6 rounded-2xl
-        border border-white/10
-        bg-[#0f0a1f]
-        shadow-[0_0_40px_rgba(168,85,247,0.3)]
-        relative
-      ">
-
-        {/* CLOSE */}
-        <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white text-xl"
-        >
-          ✕
-        </button>
-
-        <h2 className="text-2xl font-bold mb-2">
-          ¡Hola 👋!
-        </h2>
-
-        <p className="text-sm opacity-70 mb-6">
-          Rellena el formulario y pronto tendras mi repuesta 😁 
-        </p>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            emailjs.sendForm(
-              "service_jk5ztzp",
-              "template_kxjjndg",
-              e.target,
-              "DWVqBbequAhd6m7Mf"
-            )
-            .then(() => {
-              alert("Mensaje enviado 🚀");
-              onClose();
-            })
-            .catch(() => {
-              alert("Error al enviar ❌");
-            });
-          }}
-          className="flex flex-col gap-4"
-        >
-
-          <div>
-            <label className="text-sm">Nombre</label>
-            <input
-              name = "name"
-              type="text"
-              placeholder="Tu nombre"
-              className="w-full mt-1 p-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-purple-400"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm">Email</label>
-            <input
-              name = "email"
-              type="email"
-              placeholder="tu@email.com"
-              className="w-full mt-1 p-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-purple-400"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm">Mensaje</label>
-            <textarea
-              name = "message"
-              rows="4"
-              placeholder="¿En qué puedo servirte?"
-              className="w-full mt-1 p-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-purple-400"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="
-              mt-4 py-3 rounded-lg font-semibold
-              bg-purple-500
-              hover:bg-purple-600
-              shadow-[0_0_20px_#a855f7]
-              transition
-            "
-          >
-            Enviar mensaje
-          </button>
-
-        </form>
-
-      </div>
-    </div>
-  );
-}
+import { skills } from "./data/skills";
+import { assetPath } from "./utils/assets";
+
+const sections = [
+  { id: "home", label: "Perfil", icon: FaUserAlt },
+  { id: "inventory", label: "Inventario", icon: FaGem },
+  { id: "quests", label: "Misiones", icon: FaMapMarkedAlt },
+  { id: "achievements", label: "Crónicas", icon: FaScroll },
+];
+
+const rarityMeta = {
+  common: { label: "Común", className: "rarity-common" },
+  rare: { label: "Raro", className: "rarity-rare" },
+  epic: { label: "Épico", className: "rarity-epic" },
+  legendary: { label: "Legendario", className: "rarity-legendary" },
+};
+
+const particles = Array.from({ length: 28 }, (_, index) => ({
+  id: index,
+  top: `${8 + ((index * 37) % 84)}%`,
+  left: `${4 + ((index * 53) % 90)}%`,
+  delay: `${(index % 7) * 0.8}s`,
+  duration: `${8 + (index % 6)}s`,
+  size: `${2 + (index % 3)}px`,
+}));
 
 function App() {
-
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") !== "false");
 
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") setIsContactOpen(false);
+    localStorage.setItem("darkMode", String(darkMode));
+  }, [darkMode]);
+
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") setIsContactOpen(false);
     };
+
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem("darkMode");
-    return saved === "true";
-  });
+  return (
+    <div className={`app-shell ${darkMode ? "theme-void" : "theme-pale"}`}>
+      <Atmosphere />
+      <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
 
-  useEffect(() => {
-  localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-24 px-4 pb-24 pt-28 sm:px-6 lg:pl-64 lg:pr-10">
+        <section id="home" className="scroll-mt-28">
+          <Home onOpenContact={() => setIsContactOpen(true)} />
+        </section>
+
+        <section id="inventory" className="scroll-mt-28">
+          <Inventory />
+        </section>
+
+        <section id="quests" className="scroll-mt-28">
+          <Projects />
+        </section>
+
+        <section id="achievements" className="scroll-mt-28">
+          <Chronicle />
+        </section>
+      </main>
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+    </div>
+  );
+}
+
+function Atmosphere() {
+  return (
+    <div className="pointer-events-none fixed inset-0 overflow-hidden">
+      <div className="mist-layer" />
+      <div className="vignette-layer" />
+      {particles.map((particle) => (
+        <span
+          key={particle.id}
+          className="ember"
+          style={{
+            top: particle.top,
+            left: particle.left,
+            width: particle.size,
+            height: particle.size,
+            animationDelay: particle.delay,
+            animationDuration: particle.duration,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Navigation({ darkMode, setDarkMode }) {
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
-    <div className={`
-      relative min-h-screen
-      ${darkMode ? "bg-[#0f0a1f] text-white" : "bg-[#f3e8ff] text-black"}
-    `}>
-      
-      {/* Glow background */}
-      <div className={`
-        block md:hidden absolute inset-0 opacity-30
-        ${darkMode 
-          ? "bg-gradient-to-br from-purple-900 to-blue-900"
-          : "bg-gradient-to-br from-purple-200 to-blue-200"}
-      `}>
-        <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-500 opacity-20 blur-[120px] rounded-full"></div>
+    <aside className="fixed inset-x-3 top-3 z-50 lg:bottom-6 lg:left-6 lg:right-auto lg:top-6 lg:w-56">
+      <nav className="menu-frame flex items-center gap-2 overflow-x-auto px-3 py-3 lg:h-full lg:flex-col lg:items-stretch lg:justify-between lg:overflow-visible lg:p-4">
+        <div className="hidden lg:block">
+          <p className="eyebrow">Portafolio RPG</p>
+          <h2 className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">Nacho</h2>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">Backend Developer</p>
+        </div>
 
-        <div className="absolute bottom-[-150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-500 opacity-20 blur-[120px] rounded-full"></div>
+        <div className="flex min-w-max gap-2 lg:min-w-0 lg:flex-col">
+          {sections.map(({ id, label, icon: Icon }) => (
+            <button key={id} type="button" onClick={() => scrollTo(id)} className="nav-item">
+              {Icon({ "aria-hidden": "true" })}
+              <span>{label}</span>
+              <FaChevronRight aria-hidden="true" className="hidden text-[10px] opacity-60 lg:block" />
+            </button>
+          ))}
+        </div>
 
-      </div>
-      <div className = "absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key = {i}
-            className = "absolute  bg-purple-400 rounded-full  animate-float"
-            style = {{
-              top: `${2 + Math.random() * 100}%`,
-              left: `${2 + Math.random() * 100}%`,
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
-              animationDuration: `${6 + Math.random() * 10}s`,
-              filter: `blur(${Math.random() * 2}px)`
-            }}
-          />
+        <button
+          type="button"
+          onClick={() => setDarkMode((value) => !value)}
+          className="nav-item ml-auto lg:ml-0"
+          aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        >
+          {darkMode ? <FaSun aria-hidden="true" /> : <FaMoon aria-hidden="true" />}
+          <span className="hidden sm:inline">{darkMode ? "Luz pálida" : "Vacío"}</span>
+        </button>
+      </nav>
+    </aside>
+  );
+}
+
+function Home({ onOpenContact }) {
+  return (
+    <div className="hero-grid">
+      <Panel className="character-card">
+        <div className="portrait-ring">
+          <img src={assetPath("assets/pixel_art.jpg")} alt="Retrato pixel art de Nacho" />
+        </div>
+
+        <div className="mt-6 space-y-2 text-center">
+          <p className="eyebrow">Clase inicial</p>
+          <h1 className="text-4xl font-semibold text-[var(--text-strong)] sm:text-5xl">José Ignacio Ramiro</h1>
+          <p className="text-[var(--accent)]">Backend Developer Junior</p>
+        </div>
+
+        <div className="mt-7 grid w-full gap-4">
+          <Stat name="Python" level={86} />
+          <Stat name="Backend" level={82} />
+          <Stat name="Frontend" level={66} />
+        </div>
+      </Panel>
+
+      <Panel className="flex flex-col justify-between gap-8">
+        <div>
+          <p className="eyebrow">Pantalla de personaje</p>
+          <h2 className="mt-3 text-4xl font-semibold leading-tight text-[var(--text-strong)] sm:text-6xl">
+            Hola aquí Nacho!
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--text-soft)]">
+            Soy desarrollador backend junior enfocado en Python, arquitectura limpia y aplicaciones mantenibles.
+            Trabajo con una base full stack para entender el producto completo, desde la lógica de dominio hasta la
+            experiencia final del usuario.
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Trait title="Rango" value="Nivel 2" />
+          <Trait title="Arma" value="Python" />
+          <Trait title="Afinidad" value="SOLID" />
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <ActionLink href="https://github.com/Ramirofordev" icon={FaGithub} label="GitHub" />
+          <ActionLink href="https://linkedin.com/in/ramirofordev01/" icon={FaLinkedin} label="LinkedIn" />
+          <ActionLink href="mailto:joseignacioramirocastro22@gmail.com" icon={FaEnvelope} label="Email" />
+          <ActionLink href={assetPath("assets/José_Ignacio_Ramiro_Castro.pdf")} icon={FaFileDownload} label="CV" />
+          <button type="button" onClick={onOpenContact} className="primary-action">
+            Invocar contacto
+          </button>
+        </div>
+      </Panel>
+    </div>
+  );
+}
+
+function Inventory() {
+  const [activeTab, setActiveTab] = useState("certificates");
+  const tabs = [
+    { id: "certificates", label: "Reliquias", icon: FaMedal },
+    { id: "skills", label: "Atributos", icon: FaCode },
+    { id: "experience", label: "Ecos", icon: FaBriefcase },
+  ];
+
+  return (
+    <Panel>
+      <SectionHeader
+        eyebrow="Inventario"
+        title="Reliquias, atributos y ecos de progreso"
+        description="Una vista compacta de formación, herramientas / tecnologías y experiencia."
+      />
+
+      <div className="mt-8 flex flex-wrap gap-2">
+        {tabs.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setActiveTab(id)}
+            className={`tab-button ${activeTab === id ? "is-active" : ""}`}
+            aria-pressed={activeTab === id}
+          >
+            {Icon({ "aria-hidden": "true" })}
+            {label}
+          </button>
         ))}
       </div>
-      
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <div className="pt-20 flex flex-col gap-32">
-
-        <section id="home">
-          <Home darkMode={darkMode} onOpenContact = {() => setIsContactOpen(true)}/>
-        </section>
-
-        <section id="inventory">
-          <Inventory darkMode={darkMode} />
-        </section>
-
-        <section id="quests">
-          <Projects darkMode = {darkMode}/>
-        </section>
-
-        <section id="achievements">
-          <Aboutme />
-        </section>
-
+      <div className="mt-8">
+        {activeTab === "certificates" && <CertificatesPanel />}
+        {activeTab === "skills" && <SkillsPanel />}
+        {activeTab === "experience" && <ExperiencePanel />}
       </div>
-    <ContactModal 
-      isOpen={isContactOpen} 
-      onClose={() => setIsContactOpen(false)} 
-    />
+    </Panel>
+  );
+}
+
+function Projects() {
+  return (
+    <Panel>
+      <SectionHeader
+        eyebrow="Misiones"
+        title="Proyectos desplegados"
+        description="Cada misión muestra contexto, decisiones técnicas y enlaces para revisar el resultado."
+      />
+
+      <div className="mt-8 grid gap-6">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+function Chronicle() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <Panel>
+        <SectionHeader
+          eyebrow="Crónicas"
+          title="Perfil de jugador"
+          description=""
+        />
+
+        <div className="mt-8 space-y-6 text-lg leading-8 text-[var(--text-soft)]">
+          <p>
+            Mi perfil se centra en construir aplicaciones bien estructuradas, escalables y mantenibles. En proyectos
+            personales y prácticas profesionales he trabajado con Python, arquitectura modular, gestión de datos y
+            separación de responsabilidades.
+          </p>
+          <p>
+            Complemento el backend con conocimientos de React, JavaScript, Git, Linux y cloud computing. Busco seguir
+            creciendo en ingeniería de software aportando criterio, constancia y cuidado por la calidad del código.
+          </p>
+        </div>
+      </Panel>
+
+      <Panel className="profile-panel">
+        <img src={assetPath("assets/yo.png")} alt="Foto de José Ignacio Ramiro" />
+        <div>
+          <p className="eyebrow">Afinidades activas</p>
+          <div className="mt-4 grid gap-3">
+            <Trait title="Arquitectura" value="Modular" />
+            <Trait title="Principios" value="SOLID" />
+            <Trait title="Objetivo" value="Backend" />
+          </div>
+        </div>
+      </Panel>
     </div>
+  );
+}
+
+function CertificatesPanel() {
+  return (
+    <div className="relic-grid">
+      {certificates.map((cert) => (
+        <CertificateCard key={cert.id} cert={cert} />
+      ))}
+    </div>
+  );
+}
+
+function CertificateCard({ cert }) {
+  const rarity = rarityMeta[cert.rarity] ?? rarityMeta.common;
+
+  return (
+    <article className={`relic-card ${rarity.className}`}>
+      <div className="relic-image">
+        <img src={cert.image} alt={`Certificado ${cert.title}`} loading="lazy" />
+      </div>
+      <div className="p-4">
+        <div className="flex items-center justify-between gap-3">
+          <span className="rarity-badge">{rarity.label}</span>
+          <FaGem aria-hidden="true" className="text-xs opacity-70" />
+        </div>
+        <h3 className="mt-3 text-lg font-semibold text-[var(--text-strong)]">{cert.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{cert.description}</p>
+        <a href={cert.pdf} target="_blank" rel="noopener noreferrer" className="text-link mt-4 inline-flex">
+          Ver certificado
+          <FaExternalLinkAlt aria-hidden="true" />
+        </a>
+      </div>
+    </article>
+  );
+}
+
+function SkillsPanel() {
+  return (
+    <div className="grid gap-6 xl:grid-cols-2">
+      <SkillColumn title="Lenguajes" items={skills.languages} icon={FaCode} />
+      <SkillColumn title="Herramientas" items={skills.tools} icon={FaTools} />
+    </div>
+  );
+}
+
+function SkillColumn({ title, items, icon: Icon }) {
+  return (
+    <div className="inventory-column">
+      <div className="mb-5 flex items-center gap-3">
+        {Icon({ "aria-hidden": "true", className: "text-[var(--accent)]" })}
+        <h3 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h3>
+      </div>
+
+      <div className="grid gap-4">
+        {items.map((skill) => (
+          <div key={skill.name} className="skill-row">
+            <img src={skill.icon} alt="" aria-hidden="true" />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-4">
+                <span className="font-medium text-[var(--text-strong)]">{skill.name}</span>
+                <span className="text-sm text-[var(--text-muted)]">{skill.level}</span>
+              </div>
+              <div className="stat-track mt-2">
+                <span style={{ width: `${skill.level}%` }} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ExperiencePanel() {
+  return (
+    <div className="timeline">
+      {experience.map((item) => (
+        <article key={item.id} className="timeline-card">
+          <span className="timeline-dot" />
+          <div>
+            <p className="eyebrow">{item.rank}</p>
+            <h3 className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{item.role}</h3>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">
+              {item.company} · {item.date}
+            </p>
+            <ul className="mt-4 space-y-2 text-[var(--text-soft)]">
+              {item.description.map((desc) => (
+                <li key={desc} className="flex gap-3">
+                  <FaChevronRight aria-hidden="true" className="mt-1 shrink-0 text-xs text-[var(--accent)]" />
+                  <span>{desc}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ProjectCard({ project }) {
+  return (
+    <article className="quest-card">
+      <div className="quest-media">
+        <img src={project.img} alt={`Vista previa de ${project.title}`} loading="lazy" />
+      </div>
+
+      <div className="quest-body">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="quest-type">{project.type}</span>
+          <span className="quest-status">{project.status}</span>
+        </div>
+
+        <h3 className="mt-4 text-3xl font-semibold text-[var(--text-strong)]">{project.title}</h3>
+        <p className="mt-4 leading-7 text-[var(--text-soft)]">{project.description}</p>
+
+        <ul className="mt-5 grid gap-2 text-sm text-[var(--text-muted)]">
+          {project.details.map((detail) => (
+            <li key={detail} className="flex gap-3">
+              <FaChevronRight aria-hidden="true" className="mt-1 shrink-0 text-[10px] text-[var(--accent)]" />
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.technologies.map((technology) => (
+            <span key={technology.name} className="tech-chip" style={{ backgroundColor: technology.color }}>
+              <img src={technology.icon} alt="" aria-hidden="true" />
+              {technology.name}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-7 flex flex-wrap gap-3">
+          <ActionLink href={project.links.demo} icon={FaExternalLinkAlt} label="Demo" />
+          <ActionLink href={project.links.repo} icon={FaGithub} label="Repositorio" />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ContactModal({ isOpen, onClose }) {
+  const [status, setStatus] = useState("idle");
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setStatus("sending");
+
+    emailjs
+      .sendForm("service_jk5ztzp", "template_kxjjndg", event.currentTarget, "DWVqBbequAhd6m7Mf")
+      .then(() => {
+        setStatus("sent");
+        event.currentTarget.reset();
+      })
+      .catch(() => {
+        setStatus("error");
+      });
+  };
+
+  return (
+    <div className="modal-backdrop" role="presentation">
+      <div className="modal-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+        <button type="button" onClick={onClose} className="modal-close" aria-label="Cerrar contacto">
+          <FaTimes aria-hidden="true" />
+        </button>
+
+        <p className="eyebrow">Campana de invocación</p>
+        <h2 id="contact-title" className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
+          Contacto
+        </h2>
+        <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+          Rellena el formulario y recibiré tu mensaje por email.
+        </p>
+
+        <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
+          <Field label="Nombre" name="name" placeholder="Tu nombre" required />
+          <Field label="Email" name="email" type="email" placeholder="tu@email.com" required />
+
+          <label className="field-label">
+            <span>Mensaje</span>
+            <textarea name="message" rows="5" placeholder="¿En qué puedo ayudarte?" required />
+          </label>
+
+          <button type="submit" className="primary-action w-full justify-center" disabled={status === "sending"}>
+            {status === "sending" ? "Enviando..." : "Enviar mensaje"}
+          </button>
+
+          {status === "sent" && <p className="form-status success">Mensaje enviado correctamente.</p>}
+          {status === "error" && <p className="form-status error">No se pudo enviar. Revisa los datos e inténtalo de nuevo.</p>}
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, name, type = "text", placeholder, required = false }) {
+  return (
+    <label className="field-label">
+      <span>{label}</span>
+      <input name={name} type={type} placeholder={placeholder} required={required} />
+    </label>
+  );
+}
+
+function SectionHeader({ eyebrow, title, description }) {
+  return (
+    <div className="max-w-3xl">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 className="mt-3 text-3xl font-semibold leading-tight text-[var(--text-strong)] sm:text-5xl">{title}</h2>
+      <p className="mt-4 text-lg leading-8 text-[var(--text-soft)]">{description}</p>
+    </div>
+  );
+}
+
+function Panel({ children, className = "" }) {
+  return <div className={`panel ${className}`}>{children}</div>;
+}
+
+function Stat({ name, level }) {
+  const width = useMemo(() => `${level}%`, [level]);
+
+  return (
+    <div>
+      <div className="mb-2 flex items-center justify-between text-sm">
+        <span className="text-[var(--text-muted)]">{name}</span>
+        <span className="text-[var(--accent)]">{level}</span>
+      </div>
+      <div className="stat-track">
+        <span style={{ width }} />
+      </div>
+    </div>
+  );
+}
+
+function Trait({ title, value }) {
+  return (
+    <div className="trait">
+      <span>{title}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function ActionLink({ href, icon: Icon, label }) {
+  const isExternal = href.startsWith("http");
+
+  return (
+    <a href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined} className="action-link">
+      {Icon({ "aria-hidden": "true" })}
+      <span>{label}</span>
+    </a>
   );
 }
 
