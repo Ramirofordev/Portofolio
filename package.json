@@ -5,12 +5,12 @@
   "homepage": "https://Ramirofordev.github.io/Portofolio/",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "predeploy": "pnpm run build",
-  "deploy": "gh-pages -d dist"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist --nojekyll -m \"Deploy portfolio updates\" -r https://github.com/Ramirofordev/Portofolio.git"
+  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "react": "^19.2.4",

@@ -41,37 +41,31 @@ public/
 ## Instalacion
 
 ```bash
-pnpm install
-```
-
-Tambien se puede usar npm si se prefiere:
-
-```bash
 npm install
 ```
 
 ## Comandos
 
 ```bash
-pnpm run dev
+npm run dev
 ```
 
 Inicia el entorno de desarrollo.
 
 ```bash
-pnpm run build
+npm run build
 ```
 
 Genera la version de produccion en `dist/`.
 
 ```bash
-pnpm run preview
+npm run preview
 ```
 
 Sirve localmente la build de produccion.
 
 ```bash
-pnpm run deploy
+npm run deploy
 ```
 
 Publica `dist/` en GitHub Pages mediante `gh-pages`.
@@ -91,4 +85,4 @@ Las rutas de assets se construyen con `import.meta.env.BASE_URL` para funcionar 
 - Mantener los textos profesionales, breves y revisados ortograficamente.
 - Al agregar nuevos certificados, definir su `rarity`: `common`, `rare`, `epic` o `legendary`.
 - Al agregar proyectos, incluir demo, repositorio, tecnologias y detalles tecnicos concretos.
-- Verificar siempre con `pnpm run build` antes de desplegar.
+- Verificar siempre con `npm run build` antes de desplegar.
