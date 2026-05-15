@@ -97,4 +97,12 @@ export const certificates = [
     image: assetPath("assets/coursegh.png"),
     pdf: assetPath("assets/coursegh.pdf"),
   },
+  {
+    id: 13,
+    title: "Desarrollo con IA desde 0 hasta Producción",
+    description: "Aprendizaje práctico para usar la IA desde cero y aplicarla en proyectos de desarrollo reales.",
+    rarity: "legendary",
+    image: assetPath("assets/dev-con-ia.png"),
+    pdf: assetPath("assets/dev-con-ia.pdf"),
+  },
 ];
