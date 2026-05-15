@@ -28,7 +28,7 @@ export const projects = [
   },
   {
     id: 2,
-    img: assetPath("assets/demo-crm-1.0.gif"),
+    img: assetPath("assets/demo-crm-1.gif"),
     title: "CRM Project",
     type: "Quest principal",
     status: "Desplegado",
